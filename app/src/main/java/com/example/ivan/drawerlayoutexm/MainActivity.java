@@ -1,5 +1,6 @@
 package com.example.ivan.drawerlayoutexm;
 
+import android.graphics.Bitmap;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -7,6 +8,8 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,10 +38,26 @@ public class MainActivity extends AppCompatActivity {
 
         initInstance();
 
+        final NestedScrollView nsView = (NestedScrollView) findViewById(R.id.nsView);
         webView = (WebView) findViewById(R.id.webview);
+
+        nsView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                webView.loadUrl("javascript:scrollEvent.scrollY = " + scrollY + "; window.dispatchEvent(scrollEvent);");
+            }
+        });
+        webView.setWebViewClient(new WebViewClient(){
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                nsView.scrollTo(0,0);
+            }
+        });
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl("https://mail.ru/");
+        webView.setVerticalScrollBarEnabled(true);
     }
 
     private void initInstance() {
