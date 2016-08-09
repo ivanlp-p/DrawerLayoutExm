@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigation;
+    private WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initInstance();
+
+        webView = (WebView) findViewById(R.id.webview);
+
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("https://mail.ru/");
     }
 
     private void initInstance() {
@@ -55,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         rootLayout = (CoordinatorLayout) findViewById(R.id.root_layout);
-        fabBtn = (FloatingActionButton) findViewById(R.id.fab);
+      /*  fabBtn = (FloatingActionButton) findViewById(R.id.fab);
 
         fabBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+*/
         navigation = (NavigationView) findViewById(R.id.navigation);
         navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -90,5 +97,6 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
     }
 }
