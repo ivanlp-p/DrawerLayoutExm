@@ -38,22 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         initInstance();
 
-        final NestedScrollView nsView = (NestedScrollView) findViewById(R.id.nsView);
         webView = (WebView) findViewById(R.id.webview);
-
-        nsView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                webView.loadUrl("javascript:scrollEvent.scrollY = " + scrollY + "; window.dispatchEvent(scrollEvent);");
-            }
-        });
-        webView.setWebViewClient(new WebViewClient(){
-            @Override
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                super.onPageStarted(view, url, favicon);
-                nsView.scrollTo(0,0);
-            }
-        });
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl("https://mail.ru/");
