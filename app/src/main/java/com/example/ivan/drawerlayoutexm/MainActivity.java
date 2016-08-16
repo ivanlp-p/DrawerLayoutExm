@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         webView = (WebView) findViewById(R.id.webview);
 
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("https://mail.ru/");
+        webView.loadUrl("file:///android_asset/0/index.html");
         webView.setVerticalScrollBarEnabled(true);
     }
 
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
-        collapsingToolbarLayout.setTitle("Design Library");
+        collapsingToolbarLayout.setTitle("Новорожденный");
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
